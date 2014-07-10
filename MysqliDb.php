@@ -62,10 +62,6 @@ class MysqliDb
      */
     protected $_where = array();
     /**
-     * Dynamic type list for order by condition value
-     */
-    protected $_orderBy = array(); 
-    /**
      * Dynamic type list for group by condition value
      */
     protected $_groupBy = array(); 
@@ -145,7 +141,7 @@ class MysqliDb
         if ($this->isSubQuery)
             return;
 
-        $this->_mysqli = new mysqli ($this->host, $this->username, $this->password, $this->db, $this->port)
+        $this->_mysqli = new \mysqli($this->host, $this->username, $this->password, $this->db, $this->port)
             or die('There was a problem connecting to the database');
 
         $this->_mysqli->set_charset ('utf8');
@@ -176,10 +172,20 @@ class MysqliDb
         $this->_orderBy = array();
         $this->_groupBy = array(); 
         $this->_bindParams = array(''); // Create the empty 0 index
-        $this->_orderBy = array(); 
         $this->_query = null;
         $this->_whereTypeList = null;
         $this->_paramTypeList = null;
+    }
+
+    /**
+     * Method to set a prefix
+     * 
+     * @param string $prefix     Contains a tableprefix
+     */
+    public function setPrefix($prefix = '')
+    {
+        self::$_prefix = $prefix;
+        return $this;
     }
 
     /**
@@ -458,22 +464,6 @@ class MysqliDb
     }
 
     /**
-     * This method allows you to specify multiple (method chaining optional) ORDER BY statements for SQL queries.
-     *
-     * @uses $MySqliDb->orderBy('id', 'desc')->orderBy('name', 'desc');
-     *
-     * @param string $whereProp  The name of the database field.
-     * @param mixed  $whereValue The value of the database field.
-     *
-     * @return MysqliDb
-     */
-    public function orderBy($orderByField, $orderbyDirection)
-    {
-        $this->_orderBy[$orderByField] = $orderbyDirection;
-        return $this;
-    } 
-
-    /**
      * Escape harmful characters which might affect a query.
      *
      * @param string $str The string to escape.
@@ -578,16 +568,6 @@ class MysqliDb
                 $this->_query .= " " . $prop . " on " . $value;
             } 
         }
-
-        // Did the user call the "orderBy" method?
-        if (!empty ($this->_orderBy)) {
-            $this->_query .= " ORDER BY ";
-            foreach ($this->_orderBy as $prop => $value) {
-                // prepares the reset of the SQL query.
-                $this->_query .= $prop . " " . strtoupper($value) . ", ";
-            }
-            $this->_query = rtrim ($this->_query, ', ') . " ";
-        } 
 
         // Determine if is INSERT query
         if ($hasTableData) {
@@ -715,9 +695,9 @@ class MysqliDb
         // Did the user set a limit
         if (isset($numRows)) {
             if (is_array ($numRows))
-                $this->_query .= ' LIMIT ' . (int)$numRows[0] . ', ' . (int)$numRows[1];
+                $this->_query .= 'LIMIT ' . (int)$numRows[0] . ', ' . (int)$numRows[1];
             else
-                $this->_query .= ' LIMIT ' . (int)$numRows;
+                $this->_query .= 'LIMIT ' . (int)$numRows;
         }
 
         $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
