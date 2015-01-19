@@ -11,6 +11,7 @@
           "name": "Syloq",
           "role": "Developer",
           "homepage": "https://github.com/Syloq"
+        }
     ],
     "autoload": {
         "psr-0": {
