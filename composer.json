@@ -1,5 +1,5 @@
 {
-    "name": "Syloq/PHP-MySQLi-Database-Class",
+    "name": "syloq/php-mysqli-database-wrapper",
     "description": "PHP MySQLi Database wrapper",
     "license": "GPL-3.0",
     "authors": [
