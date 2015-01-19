@@ -1,0 +1,25 @@
+{
+    "name": "Syloq/PHP-MySQLi-Database-Class",
+    "description": "PHP MySQLi Database wrapper",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+          "name": "Josh Campbell",
+          "role": "Developer"
+        },
+        {
+          "name": "Syloq",
+          "role": "Developer",
+          "homepage": "https://github.com/Syloq"
+    ],
+    "autoload": {
+        "psr-0": {
+            "MysqliDb\\": "/"
+        }
+    },
+    "support": {
+        "irc": "irc://irc.nightstar.net/mysqlidb",
+        "issues": "https://github.com/Syloq/PHP-MySQLi-Database-Class/issues",
+        "source": "https://github.com/Syloq/PHP-MySQLi-Database-Class"
+    }
+}
