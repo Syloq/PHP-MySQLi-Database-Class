@@ -695,9 +695,9 @@ class MysqliDb
         // Did the user set a limit
         if (isset($numRows)) {
             if (is_array ($numRows))
-                $this->_query .= 'LIMIT ' . (int)$numRows[0] . ', ' . (int)$numRows[1];
+                $this->_query .= ' LIMIT ' . (int)$numRows[0] . ', ' . (int)$numRows[1];
             else
-                $this->_query .= 'LIMIT ' . (int)$numRows;
+                $this->_query .= ' LIMIT ' . (int)$numRows;
         }
 
         $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
