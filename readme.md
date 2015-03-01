@@ -42,12 +42,6 @@ $db = new Mysqlidb (Array (
 ```
 port and charset params are optional.
 
-Reuse already connected mysqli:
-```php
-$mysqli = new mysqli ('host', 'username', 'password', 'databaseName');
-$db = new Mysqlidb ($mysqli);
-```
-
 Its also possible to set a table prefix:
 ```php
 $db->setPrefix ('my_');
